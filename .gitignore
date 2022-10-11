@@ -1,3 +1,6 @@
 .gradle
 build
 .idea
+local.properties
+gradle.properties
+secring.gpg

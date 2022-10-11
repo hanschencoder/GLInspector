@@ -54,7 +54,7 @@ gl error 堆栈输出：
 buildscript {
     dependencies {
         // 添加依赖
-        classpath 'site.hanschen.glinspector:glinspector:1.0.0'
+        classpath 'site.hanschen:glinspector:1.0.1'
     }
 }
 

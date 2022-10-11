@@ -1,6 +1,7 @@
 plugins {
     id 'java-gradle-plugin'
     id 'maven-publish'
+    id 'signing'
 }
 
 gradlePlugin {
@@ -12,14 +13,37 @@ gradlePlugin {
     }
 }
 
+signing {
+    sign publishing.publications
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = 'site.hanschen.glinspector'
+            groupId = 'site.hanschen'
             artifactId = 'glinspector'
-            version = '1.0.0'
-
+            version = '1.0.1'
             from components.java
+
+            pom {
+                name = 'GLInspector'
+                url = 'https://github.com/hanschencoder/GLInspector'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username = project.hasProperty('upload.user') ? project.property('upload.user') : System.getenv('UPLOAD.USER')
+                password = project.hasProperty('upload.password') ? project.property('upload.password') : System.getenv('UPLOAD.PASSWORD')
+            }
+            url = "https://s01.oss.sonatype.org/content/repositories/releases"
         }
     }
 }
