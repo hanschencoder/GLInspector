@@ -81,6 +81,10 @@ public class InspectorPlugin implements Plugin<Project> {
             "        GLInspector.sEnableLogcat = sEnableLogcat;\n" +
             "    }\n" +
             "\n" +
+            "    public static void setTag(String tag) {\n" +
+            "        GLInspector.TAG = TAG;\n" +
+            "    }\n" +
+            "\n" +
             "    public static void setEnableErrorCheck(boolean sEnableErrorCheck) {\n" +
             "        GLInspector.sEnableErrorCheck = sEnableErrorCheck;\n" +
             "    }\n" +
