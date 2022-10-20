@@ -70,6 +70,8 @@ public class InspectorPlugin implements Plugin<Project> {
     private static final String CLASS_CONTENT = "import android.opengl.GLES20;\n" +
             "import android.util.Log;\n" +
             "\n" +
+            "import java.util.Arrays;\n" +
+            "\n" +
             "public class GLInspector {\n" +
             "\n" +
             "    private static String TAG = \"GLInspector\";\n" +
@@ -82,7 +84,7 @@ public class InspectorPlugin implements Plugin<Project> {
             "    }\n" +
             "\n" +
             "    public static void setTag(String tag) {\n" +
-            "        GLInspector.TAG = TAG;\n" +
+            "        GLInspector.TAG = tag;\n" +
             "    }\n" +
             "\n" +
             "    public static void setEnableErrorCheck(boolean sEnableErrorCheck) {\n" +
@@ -98,7 +100,7 @@ public class InspectorPlugin implements Plugin<Project> {
             "            } else {\n" +
             "                b.append('(');\n" +
             "                for (int i = 0; ; i++) {\n" +
-            "                    b.append(parameters[i]);\n" +
+            "                    b.append(objectToString(parameters[i]));\n" +
             "                    if (i == iMax) {\n" +
             "                        b.append(')');\n" +
             "                        break;\n" +
@@ -111,6 +113,34 @@ public class InspectorPlugin implements Plugin<Project> {
             "        }\n" +
             "        if (sEnableErrorCheck) {\n" +
             "            assertNoErrors();\n" +
+            "        }\n" +
+            "    }\n" +
+            "\n" +
+            "    private static String objectToString(Object object) {\n" +
+            "        if (object instanceof int[]) {\n" +
+            "            return Arrays.toString((int[]) object);\n" +
+            "        } else if (object instanceof float[]) {\n" +
+            "            return Arrays.toString((float[]) object);\n" +
+            "        } else if (object instanceof boolean[]) {\n" +
+            "            return Arrays.toString((boolean[]) object);\n" +
+            "        } else if (object instanceof byte[]) {\n" +
+            "            return Arrays.toString((byte[]) object);\n" +
+            "        } else if (object instanceof char[]) {\n" +
+            "            return Arrays.toString((char[]) object);\n" +
+            "        } else if (object instanceof double[]) {\n" +
+            "            return Arrays.toString((double[]) object);\n" +
+            "        } else if (object instanceof long[]) {\n" +
+            "            return Arrays.toString((long[]) object);\n" +
+            "        } else if (object instanceof short[]) {\n" +
+            "            return Arrays.toString((short[]) object);\n" +
+            "        } else if (object instanceof Object[]) {\n" +
+            "            return Arrays.toString((Object[]) object);\n" +
+            "        } else if (object instanceof String) {\n" +
+            "            return \"\\\"\" + object.toString() + \"\\\"\";\n" +
+            "        } else if (object == null) {\n" +
+            "            return \"null\";\n" +
+            "        } else {\n" +
+            "            return object.toString();\n" +
             "        }\n" +
             "    }\n" +
             "\n" +
@@ -141,5 +171,5 @@ public class InspectorPlugin implements Plugin<Project> {
             "            throw new IllegalStateException(\"glError: \" + reason);\n" +
             "        }\n" +
             "    }\n" +
-            "}\n";
+            "}";
 }
